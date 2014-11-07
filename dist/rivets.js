@@ -1048,7 +1048,7 @@
       }
     },
     routine: function(el, collection) {
-      var binding, data, i, index, key, model, modelName, options, previous, template, view, _i, _j, _k, _len, _len1, _len2, _ref1, _ref2, _ref3, _results;
+      var binding, data, i, index, model, modelName, options, previous, template, view, _i, _j, _k, _len, _len1, _len2, _ref1, _ref2, _results;
       modelName = this.args[0];
       collection = collection || [];
       if (this.iterated.length > collection.length) {
@@ -1062,18 +1062,10 @@
       }
       for (index = _j = 0, _len1 = collection.length; _j < _len1; index = ++_j) {
         model = collection[index];
-        data = {
-          index: index
-        };
+        data = Object.create(this.view.models);
+        data.index = index;
         data[modelName] = model;
         if (this.iterated[index] == null) {
-          _ref2 = this.view.models;
-          for (key in _ref2) {
-            model = _ref2[key];
-            if (data[key] == null) {
-              data[key] = model;
-            }
-          }
           previous = this.iterated.length ? this.iterated[this.iterated.length - 1].els[0] : this.marker;
           options = this.view.options();
           options.preloadData = true;
@@ -1087,10 +1079,10 @@
         }
       }
       if (el.nodeName === 'OPTION') {
-        _ref3 = this.view.bindings;
+        _ref2 = this.view.bindings;
         _results = [];
-        for (_k = 0, _len2 = _ref3.length; _k < _len2; _k++) {
-          binding = _ref3[_k];
+        for (_k = 0, _len2 = _ref2.length; _k < _len2; _k++) {
+          binding = _ref2[_k];
           if (binding.el === this.marker.parentNode && binding.type === 'value') {
             _results.push(binding.sync());
           } else {
